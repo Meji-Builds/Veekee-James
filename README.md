@@ -12,7 +12,7 @@ testimonial, social links) without touching code.
 - Tailwind CSS v4, design tokens in `app/globals.css`
 - `next/font` for Bodoni Moda (display) and Jost (body)
 - Lenis for smooth scroll, an IntersectionObserver hook for scroll reveals
-- Upstash Redis for dashboard-editable settings, read fresh on every request
+- Redis for dashboard-editable settings, read fresh on every request
 
 ## Getting started
 
@@ -29,16 +29,15 @@ Copy `env.example` to `.env.local`:
 
 ```bash
 DASHBOARD_PASSWORD=change-me
-UPSTASH_REDIS_REST_URL=
-UPSTASH_REDIS_REST_TOKEN=
+REDIS_URL=
 ```
 
 - `DASHBOARD_PASSWORD` is the sign-in password for `/dashboard`. Without it, the dashboard
   refuses to authenticate anyone.
-- `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` come from a Redis database (Vercel's
-  project dashboard: Storage > Marketplace Database Providers > Upstash Redis, or directly at
-  upstash.com). Free tier is plenty for this. Without these, the site runs fine on its
-  built-in defaults but dashboard edits won't save.
+- `REDIS_URL` comes from a Redis database. On Vercel: project Storage tab > Create Database >
+  Redis, then connect it to this project, Vercel injects `REDIS_URL` automatically. Free tier
+  is plenty for this. Without it, the site runs fine on its built-in defaults but dashboard
+  edits won't save.
 
 ## The dashboard
 
@@ -59,6 +58,6 @@ lives in `lib/content.ts` and is edited in code, not the dashboard.
 
 ## Deploying
 
-Push to GitHub and import the repo into Vercel; it auto-detects Next.js. Add the three
+Push to GitHub and import the repo into Vercel; it auto-detects Next.js. Add the two
 environment variables above in the Vercel project settings before the first deploy, then
 visit `/dashboard` on the live site to fill in the real numbers.

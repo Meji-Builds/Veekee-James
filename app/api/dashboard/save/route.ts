@@ -15,8 +15,7 @@ export async function POST(request: Request) {
   if (!isSettingsStoreConfigured()) {
     return NextResponse.json(
       {
-        error:
-          "No settings store is configured yet (missing UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN).",
+        error: "No settings store is configured yet (missing REDIS_URL).",
       },
       { status: 500 },
     );

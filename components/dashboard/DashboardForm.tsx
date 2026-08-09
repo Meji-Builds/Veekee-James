@@ -103,10 +103,9 @@ export function DashboardForm({
 
         {!storeConfigured ? (
           <p className="mb-8 rounded-xl border border-gold-lt/30 bg-black/20 p-4 text-[0.82rem] text-oyster/80">
-            No settings store is connected yet, so changes here won&apos;t persist. Add{" "}
-            <code className="text-gold-lt">UPSTASH_REDIS_REST_URL</code> and{" "}
-            <code className="text-gold-lt">UPSTASH_REDIS_REST_TOKEN</code> as environment
-            variables, then redeploy.
+            No settings store is connected yet, so changes here won&apos;t persist. Add a{" "}
+            <code className="text-gold-lt">REDIS_URL</code> environment variable, then
+            redeploy.
           </p>
         ) : null}
 

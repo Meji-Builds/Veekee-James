@@ -1,4 +1,6 @@
-import { Redis } from "@upstash/redis";
+import { createClient } from "redis";
+
+type RedisClient = ReturnType<typeof createClient>;
 
 export type ProgramOverride = {
   level: string;
@@ -47,23 +49,40 @@ export const defaultSettings: SiteSettings = {
 
 const SETTINGS_KEY = "veekee-james:site-settings";
 
-function getRedis(): Redis | null {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return null;
-  return new Redis({ url, token });
+let clientPromise: Promise<RedisClient> | null = null;
+
+function getClient(): Promise<RedisClient> | null {
+  const url = process.env.REDIS_URL;
+  if (!url) return null;
+
+  if (!clientPromise) {
+    const client: RedisClient = createClient({ url });
+    client.on("error", (err) => console.error("Redis client error:", err));
+    clientPromise = client
+      .connect()
+      .then(() => client)
+      .catch((err) => {
+        clientPromise = null;
+        throw err;
+      });
+  }
+
+  return clientPromise;
 }
 
 export function isSettingsStoreConfigured(): boolean {
-  return Boolean(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+  return Boolean(process.env.REDIS_URL);
 }
 
 export async function getSettings(): Promise<SiteSettings> {
-  const redis = getRedis();
-  if (!redis) return defaultSettings;
+  const pending = getClient();
+  if (!pending) return defaultSettings;
 
-  const stored = await redis.get<Partial<SiteSettings>>(SETTINGS_KEY);
-  if (!stored) return defaultSettings;
+  const client = await pending;
+  const raw = await client.get(SETTINGS_KEY);
+  if (!raw) return defaultSettings;
+
+  const stored = JSON.parse(raw) as Partial<SiteSettings>;
 
   return {
     ...defaultSettings,
@@ -176,9 +195,10 @@ export function sanitizeSettings(input: unknown): SiteSettings {
 }
 
 export async function saveSettings(settings: SiteSettings): Promise<void> {
-  const redis = getRedis();
-  if (!redis) {
-    throw new Error("Settings store is not configured (missing Upstash Redis env vars).");
+  const pending = getClient();
+  if (!pending) {
+    throw new Error("Settings store is not configured (missing REDIS_URL).");
   }
-  await redis.set(SETTINGS_KEY, settings);
+  const client = await pending;
+  await client.set(SETTINGS_KEY, JSON.stringify(settings));
 }
