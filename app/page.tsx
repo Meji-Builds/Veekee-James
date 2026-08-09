@@ -9,21 +9,26 @@ import { Lookbook } from "@/components/Lookbook";
 import { Testimonial } from "@/components/Testimonial";
 import { Admissions } from "@/components/Admissions";
 import { Footer } from "@/components/Footer";
+import { getSettings } from "@/lib/settings";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const settings = await getSettings();
+
   return (
     <>
       <AnnouncementBar />
       <Nav />
-      <Hero />
-      <CredibilityStrip />
-      <Programs />
+      <Hero establishedYear={settings.establishedYear} />
+      <CredibilityStrip studentsTrained={settings.studentsTrained} />
+      <Programs programOverrides={settings.programs} />
       <MasterclassFeature />
       <About />
       <Lookbook />
-      <Testimonial />
-      <Admissions />
-      <Footer />
+      <Testimonial testimonial={settings.testimonial} />
+      <Admissions whatsappNumber={settings.whatsappNumber} />
+      <Footer social={settings.social} />
     </>
   );
 }

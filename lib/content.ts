@@ -8,7 +8,6 @@ export const nav = [
 
 export const credibility = [
   { value: "AMVCA", label: "Best Designer of the Year" },
-  { value: "1,000+", label: "students trained" },
   { value: "In-person", label: "and online" },
   { value: "Lagos", label: "Nigeria" },
 ];
@@ -17,8 +16,6 @@ export type Program = {
   numeral: string;
   title: string;
   description: string;
-  level: string;
-  duration: string;
 };
 
 export const programs: Program[] = [
@@ -27,32 +24,24 @@ export const programs: Program[] = [
     title: "Foundations of Sewing",
     description:
       "Machines, measurements and the fundamentals every designer is built on.",
-    level: "Beginner",
-    duration: "6 weeks",
   },
   {
     numeral: "II",
     title: "Ready-to-Wear & Tailoring",
     description:
       "Cut, construct and finish garments people actually want to wear.",
-    level: "Intermediate",
-    duration: "8 weeks",
   },
   {
     numeral: "III",
     title: "Couture & Corsetry",
     description:
       "Structure, boning and hand-finishing: the craft behind statement pieces.",
-    level: "Advanced",
-    duration: "10 weeks",
   },
   {
     numeral: "IV",
     title: "The Luxury Masterclass",
     description:
       "An intensive with Veekee James and the house team, start to runway.",
-    level: "Signature",
-    duration: "Cohort",
   },
 ];
 
@@ -78,13 +67,6 @@ export const lookbook: LookbookItem[] = [
   { title: "Hand-beaded bodice", program: "Couture & Corsetry", motif: "beading" },
 ];
 
-export const testimonial = {
-  quote:
-    "I came in only able to thread a machine. I left with a finished bridal collection, and my first paying clients.",
-  who: "Amara O.",
-  detail: "Couture & Corsetry, Class of 2025",
-};
-
 export const footerLinks = {
   programs: [
     { label: "Foundations of Sewing", href: "#programs" },
@@ -98,15 +80,8 @@ export const footerLinks = {
     { label: "Admissions", href: "#admissions" },
     { label: "Fees & dates", href: "#admissions" },
   ],
-  contact: [
-    { label: "WhatsApp", href: "#admissions" },
-    { label: "Email", href: "mailto:hello@veekeejamesacademy.com" },
-    { label: "Instagram", href: "https://instagram.com" },
-    { label: "TikTok", href: "https://tiktok.com" },
-  ],
 };
 
 export const site = {
   name: "Veekee James Fashion Academy",
-  whatsappNumber: process.env.NEXT_PUBLIC_ACADEMY_WHATSAPP || "2348012345678",
 };

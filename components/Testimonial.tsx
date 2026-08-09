@@ -1,7 +1,7 @@
 import { Reveal } from "./ui/Reveal";
-import { testimonial } from "@/lib/content";
+import type { SiteSettings } from "@/lib/settings";
 
-export function Testimonial() {
+export function Testimonial({ testimonial }: { testimonial: SiteSettings["testimonial"] }) {
   return (
     <section className="border-y border-line">
       <div className="mx-auto max-w-[960px] px-6 py-24 text-center sm:px-10 sm:py-28">

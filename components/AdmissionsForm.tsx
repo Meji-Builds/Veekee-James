@@ -2,9 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { Button } from "./ui/Button";
-import { programs, site } from "@/lib/content";
+import { programs } from "@/lib/content";
 
-export function AdmissionsForm() {
+export function AdmissionsForm({ whatsappNumber }: { whatsappNumber: string }) {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [program, setProgram] = useState(programs[0].title);
@@ -23,7 +23,7 @@ export function AdmissionsForm() {
       `Contact: ${contact}`,
     ].join("\n");
 
-    const url = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener");
     setSubmitted(true);
   }

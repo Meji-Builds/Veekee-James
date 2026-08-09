@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { footerLinks } from "@/lib/content";
+import type { SiteSettings } from "@/lib/settings";
 
-export function Footer() {
+export function Footer({ social }: { social: SiteSettings["social"] }) {
+  const contactLinks = [
+    { label: "WhatsApp", href: "#admissions" },
+    { label: "Email", href: `mailto:${social.email}` },
+    { label: "Instagram", href: social.instagram },
+    { label: "TikTok", href: social.tiktok },
+  ];
+
   return (
     <footer className="bg-ink py-20 text-oyster/70">
       <div className="mx-auto max-w-[1220px] px-6 sm:px-10">
@@ -23,7 +31,7 @@ export function Footer() {
 
           <FooterColumn title="Programs" links={footerLinks.programs} />
           <FooterColumn title="Academy" links={footerLinks.academy} />
-          <FooterColumn title="Contact" links={footerLinks.contact} />
+          <FooterColumn title="Contact" links={contactLinks} />
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-4 pt-7 text-[0.72rem] tracking-[0.05em] text-oyster/50">

@@ -3,13 +3,13 @@ import { Button } from "./ui/Button";
 import { Plate } from "./ui/Plate";
 import { GownMotif } from "./motifs";
 
-export function Hero() {
+export function Hero({ establishedYear }: { establishedYear: string }) {
   return (
     <header id="top" className="pb-24 pt-20 sm:pb-28 sm:pt-24">
       <div className="mx-auto grid max-w-[1220px] grid-cols-1 items-center gap-14 px-6 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <Reveal>
           <span className="text-[0.7rem] font-medium uppercase tracking-[0.32em] text-gold">
-            Lagos · Established 2018
+            Lagos · Established {establishedYear}
           </span>
           <h1 className="font-display mt-5 text-[clamp(2.6rem,6vw,5.2rem)] font-medium leading-[1.03] tracking-tight">
             The art of couture, <em className="text-oxblood italic">taught by hand.</em>

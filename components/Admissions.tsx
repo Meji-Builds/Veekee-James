@@ -1,7 +1,7 @@
 import { Reveal } from "./ui/Reveal";
 import { AdmissionsForm } from "./AdmissionsForm";
 
-export function Admissions() {
+export function Admissions({ whatsappNumber }: { whatsappNumber: string }) {
   return (
     <section
       id="admissions"
@@ -22,7 +22,7 @@ export function Admissions() {
         </Reveal>
 
         <Reveal delay={1}>
-          <AdmissionsForm />
+          <AdmissionsForm whatsappNumber={whatsappNumber} />
         </Reveal>
       </div>
     </section>
